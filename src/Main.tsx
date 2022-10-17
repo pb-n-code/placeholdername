@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import data from './data.json';
+import axios from 'axios';
 
 function Main() {
   const [photoArr, setPhotos] = useState<any[]>([]);
 
   useEffect(() => {
-    setPhotos(data);
+    getPhotos();
   }, []);
+
+  const getPhotos = async () => {
+    const url = `${process.env.REACT_APP_SERVER}/photos`;
+    const response = await axios.get(url);
+    setPhotos(response.data);
+  }
 
 
 
